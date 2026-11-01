@@ -47,3 +47,6 @@ Total ≈ 34–48 sessions. Phase 3 and 4 carry the most uncertainty.
 
 ## Phase 7 — Hardening
 - Run all 12 acceptance tests on this machine, record results in TESTING.md, fix, write CHANGELOG, produce a self-contained publish build and README run instructions.
+
+---
+**Phase 1 status (2026-11-02): complete, awaiting CTO review.** See CHANGELOG.md and TECHNICAL_DECISIONS.md section D. Phase 2 not started.

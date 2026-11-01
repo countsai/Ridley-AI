@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Only the Orchestration project (Phase 3) and the Core tests may mint AuthorisedStep / ValidatedArgs. -->
+    <InternalsVisibleTo Include="Ridley.Orchestration" />
+    <InternalsVisibleTo Include="Ridley.Core.Tests" />
+  </ItemGroup>
+</Project>

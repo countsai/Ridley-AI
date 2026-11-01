@@ -47,3 +47,29 @@ Overlay is the differentiating feature and is the hardest thing to do well in Wi
 Runtime: `Microsoft.Extensions.Hosting`, `Serilog.Extensions.Hosting` + `Serilog.Sinks.File`, `CommunityToolkit.Mvvm`, `Microsoft.Data.Sqlite`, `Microsoft.Windows.CsWin32`, `NAudio`, `FlaUI.UIA3`, `Whisper.net` + runtime, `DocumentFormat.OpenXml` (Phase 6).
 Test: `xunit`, `Microsoft.NET.Test.Sdk`, `NSubstitute`, `coverlet.collector`.
 All free/open source. No paid APIs.
+
+---
+## D. CTO decisions (2026-11-02) and Phase 1 outcomes
+
+| ID | Outcome |
+|---|---|
+| D-01 | **Approved and done.** Repository lives at `C:\dev\Ridley` (own Git history, remote `countsai/Ridley-AI`). Files verified by SHA-256 (42/42 identical) before the original was cleared. An empty `Desktop\Ridley` folder remains because the IDE held it open; safe to delete |
+| D-02 | **.NET 10 SDK 10.0.403 installed and verified** (WPF build 0 warnings/errors). **Visual Studio 2026 is NOT installed**: needs several GB with 14 GB free and an elevated installer. CLI/VS Code builds work. Awaiting go-ahead |
+| D-05, D-06, D-07 | Deferred as directed. No provider, model or speech engine chosen; nothing downloaded. Whisper.net, NAudio, FlaUI, CsWin32, OpenXml are **not** added yet |
+| TFM | `net10.0` for Core; `net10.0-windows10.0.22621.0` for Storage/App |
+| Packages (Phase 1) | Microsoft.Data.Sqlite 10.0.14, Microsoft.Extensions.Hosting 10.0.14, DependencyInjection.Abstractions, System.Security.Cryptography.ProtectedData 10.0.14, CommunityToolkit.Mvvm 8.4.2, Serilog.Extensions.Hosting 10.0.0, Serilog.Sinks.File 7.0.0; tests: xunit 2.9.3, Microsoft.NET.Test.Sdk 18.11.0, xunit.runner.visualstudio 4.0.1, NSubstitute 6.2.0, coverlet 10.1.0. All MIT/Apache-2.0/BSD-3. Restored from nuget.org; maintenance status not independently audited beyond being current releases |
+| Tray | WinForms `NotifyIcon` (SDK-included, no new package); WinForms global usings removed to avoid type clashes |
+
+### Architecture review outcomes (CTO items 1-6)
+1. **CancellationToken:** every async contract takes one, enforced by a reflection test. Previously missing on `StopAsync`, settings, history, overlay and observer members.
+2. **UI thread:** `ITeachingOverlay` is async and documented callable from any thread; implementations marshal via `IUiDispatcher` (WPF `Dispatcher`). Capture-badge updates already use it.
+3. **Gate is final authority:** `IActionExecutor` and `IActionVerifier` accept only `AuthorisedStep`, whose constructor is internal and visible only to `Ridley.Orchestration`. Compile-time enforced; no overload takes `PlannedStep`.
+4. **Model arguments validated:** `ModelToolCall.RawArguments` cannot enter a plan: `PlannedStep` requires `ValidatedArgs`, producible only via `IToolArgumentValidator`.
+5. **User authorisation:** `IConfirmationPrompt` (real dialog, default button No) is the only route to `AuthorisedBy.UserConfirmation`; no setting disables confirmations (tested).
+6. **Captures:** `ICaptureIndicator` scope must wrap every capture; `AllowScreenCapture` defaults off; `ScreenCapture`/`AudioClip` redact in `ToString`; history entries carry no content; logs record lengths, not text (tested).
+
+### Deviations from the approved architecture
+- Solution file is classic `.sln`, not `.slnx`, for tool compatibility.
+- Contracts were changed from the Phase 0 draft as listed above; added `IToolArgumentValidator`, `ICaptureIndicator`, `IConfirmationPrompt`, `ITurnHandler`.
+- `ISettingsStore`/`ISecretStore` became async.
+- `Ridley.Orchestration` is referenced by `InternalsVisibleTo` but does not exist yet (Phase 2/3).

@@ -187,3 +187,6 @@ Notes:
 | Unit tests | xUnit + NSubstitute; Orchestration tested exhaustively with fakes (plan validation, gate, retries, cancellation, ambiguity) |
 | Integration tests | Separate project, category-tagged, run on an interactive desktop (launch Notepad, verify window, volume, overlay shows); excluded from default CI |
 | Git | Conventional Commits (`feat:`, `fix:`, `docs:`, `test:`, `chore:`), trunk-based with short feature branches, one phase = one PR/tag, no secrets, `.env` ignored |
+
+---
+> **Update (Phase 1):** section 5 is superseded by the implemented contracts in src/Ridley.Core/Contracts.cs and the review outcomes in TECHNICAL_DECISIONS.md section D (all async members take CancellationToken; executor/verifier take AuthorisedStep; args are ValidatedArgs; overlay is async and any-thread).
