@@ -1,0 +1,39 @@
+# Build output
+bin/
+obj/
+publish/
+artifacts/
+*.user
+*.suo
+.vs/
+
+# Test results / coverage
+TestResults/
+coverage/
+*.trx
+
+# Secrets and local config (never commit)
+.env
+.env.*
+!.env.example
+appsettings.*.local.json
+secrets.json
+*.pfx
+
+# Local data created by Ridley at runtime
+*.db
+*.db-shm
+*.db-wal
+logs/
+*.log
+
+# Downloaded models
+models/
+*.bin
+*.gguf
+
+# IDE / OS
+.idea/
+*.DotSettings.user
+Thumbs.db
+desktop.ini
