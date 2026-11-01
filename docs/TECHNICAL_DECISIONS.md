@@ -73,3 +73,7 @@ All free/open source. No paid APIs.
 - Contracts were changed from the Phase 0 draft as listed above; added `IToolArgumentValidator`, `ICaptureIndicator`, `IConfirmationPrompt`, `ITurnHandler`.
 - `ISettingsStore`/`ISecretStore` became async.
 - `Ridley.Orchestration` is referenced by `InternalsVisibleTo` but does not exist yet (Phase 2/3).
+
+---
+## E. OceanToken spike (2026-11-02)
+D-06 and D-07 remain **undecided** pending CTO review of docs/OCEANTOKEN_EVALUATION.md. The spike shows an OpenAI-compatible gateway client works for chat, tools, structured output, image input, batch STT and TTS. Interface changes it needs are listed in section 9 of that report and have **not** been applied. Permission gate and authorised-execution types are unchanged.

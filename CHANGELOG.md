@@ -10,3 +10,7 @@
 
 ## Phase 0
 - Repository audit, architecture, plan, decisions. Repository moved to `C:\dev\Ridley`.
+
+### OceanToken provider spike
+- Ridley.Providers: OceanToken client (timeouts, bounded retries, cancellation, usage/cost tracking, spend guard), chat/STT/TTS providers. 33 tests.
+- spikes/OceanTokenSpike live harness (not in the solution). Findings in docs/OCEANTOKEN_EVALUATION.md.

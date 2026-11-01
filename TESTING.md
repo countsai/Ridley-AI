@@ -13,3 +13,6 @@ Launch; status "Ready"; Mic disabled; Stop disabled when idle; Send enabled only
 
 ## Not yet tested
 Real microphone, speech, model calls, UI Automation actions, capture, overlay, documents: none exist yet. Integration tests needing an interactive desktop will live in `Ridley.Platform.Windows.Tests` (Phase 3).
+
+## Provider spike (OceanToken)
+76 tests total now (Providers: 33). Live checks are run by spikes/OceanTokenSpike and need a real key; results are in docs/OCEANTOKEN_EVALUATION.md. They are not part of dotnet test.
